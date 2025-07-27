@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CrossFlow ERP - 跨境电商管理系统</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        .sidebar-active { 
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1E3A8A 0%, #3B82F6 100%);
+        }
+        .switch-on {
+            background-color: #10B981;
+        }
+        .switch-off {
+            background-color: #E5E7EB;
+        }
+        .profit-positive { color: #10B981; }
+        .profit-negative { color: #EF4444; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- 顶部导航栏 -->
+    <header class="gradient-bg text-white shadow-lg">
+        <div class="px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold">CrossFlow ERP</h1>
+                        <p class="text-blue-100 text-sm">跨境电商管理系统</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">156</div>
+                        <div class="text-blue-100 text-sm">今日订单</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">¥24,580</div>
+                        <div class="text-blue-100 text-sm">今日GMV</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">892</div>
+                        <div class="text-blue-100 text-sm">库存商品</div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-orange-400 rounded-full flex items-center justify-center">
+                            <span class="text-white text-sm font-semibold">管</span>
+                        </div>
+                        <span>管理员</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex">
+        <!-- 侧边导航栏 -->
+        <aside class="w-64 bg-white shadow-lg h-screen sticky top-0">
+            <nav class="p-4">
+                <ul class="space-y-2">
+                    <li>
+                        <a href="#" onclick="showPage('dashboard')" class="sidebar-item sidebar-active flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200" data-page="dashboard">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z"/>
+                            </svg>
+                            <span>数据看板</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="showPage('procurement')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gray-100" data-page="procurement">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/>
+                            </svg>
+                            <span>采购管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="showPage('warehouse')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gray-100" data-page="warehouse">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M4 3a2 2 0 100 4h12a2 2 0 100-4H4z"/>
+                                <path fill-rule="evenodd" d="M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>云仓管理</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="showPage('logistics')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gray-100" data-page="logistics">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                                <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-.293-.707L15 4.586A1 1 0 0014.414 4H14v3z"/>
+                            </svg>
+                            <span>物流追踪</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="showPage('settings')" class="sidebar-item flex items-center space-x-3 px-4 py-3 rounded-lg transition-all duration-200 hover:bg-gray-100" data-page="settings">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"/>
+                            </svg>
+                            <span>系统设置</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="flex-1 p-6">
+            <!-- 数据看板页面 -->
+            <div id="dashboard-page" class="page-content">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">数据看板</h2>
+                    <p class="text-gray-600">实时业务数据概览</p>
+                </div>
+
+                <!-- 关键指标卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white rounded-xl shadow-sm p-6 card-hover transition-all duration-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">今日订单</p>
+                                <p class="text-3xl font-bold text-gray-800">156</p>
+                                <p class="text-green-500 text-sm">↗ +12.5%</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6 card-hover transition-all duration-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">今日GMV</p>
+                                <p class="text-3xl font-bold text-gray-800">¥24,580</p>
+                                <p class="text-green-500 text-sm">↗ +8.2%</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6 card-hover transition-all duration-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">库存商品</p>
+                                <p class="text-3xl font-bold text-gray-800">892</p>
+                                <p class="text-orange-500 text-sm">15个低库存</p>
+                            </div>
+                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM10 12a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6 card-hover transition-all duration-200">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">本月利润</p>
+                                <p class="text-3xl font-bold text-gray-800">¥89,234</p>
+                                <p class="text-green-500 text-sm">利润率 24.6%</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-purple-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 平台分布和异常预警 -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">平台订单分布</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-4 h-4 bg-blue-500 rounded"></div>
+                                    <span class="text-gray-700">Coupang (韩国)</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-lg font-semibold">89</div>
+                                    <div class="text-sm text-gray-500">57.1%</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-4 h-4 bg-green-500 rounded"></div>
+                                    <span class="text-gray-700">Ozon (俄罗斯)</span>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-lg font-semibold">67</div>
+                                    <div class="text-sm text-gray-500">42.9%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">异常预警</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center space-x-3 p-3 bg-red-50 rounded-lg">
+                                <div class="w-2 h-2 bg-red-500 rounded-full"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">5个订单清关延误</p>
+                                    <p class="text-xs text-gray-500">超过正常时间48小时</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-orange-50 rounded-lg">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">15个商品库存不足</p>
+                                    <p class="text-xs text-gray-500">需要及时补货</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <div class="flex-1">
+                                    <p class="text-sm font-medium text-gray-800">3个代采购订单待处理</p>
+                                    <p class="text-xs text-gray-500">云仓等待采购确认</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 采购管理页面 -->
+            <div id="procurement-page" class="page-content hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">采购管理</h2>
+                    <p class="text-gray-600">订单采购和代采购服务</p>
+                </div>
+
+                <!-- 操作工具栏 -->
+                <div class="bg-white rounded-xl shadow-sm p-4 mb-6">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <button class="gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90">
+                                同步订单
+                            </button>
+                            <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50">
+                                批量采购
+                            </button>
+                            <select class="border border-gray-300 rounded-lg px-3 py-2">
+                                <option>全部平台</option>
+                                <option>Coupang</option>
+                                <option>Ozon</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="text" placeholder="搜索订单号或SKU" class="border border-gray-300 rounded-lg px-3 py-2 w-64">
+                            <button class="gradient-bg text-white px-4 py-2 rounded-lg">
+                                搜索
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 采购订单表格 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">产品图片</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">订单号</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">平台</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">SKU</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">数量</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">售价</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">代采购</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">货源链接</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">采购价</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">利润</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">手续费</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=60&h=60&fit=crop" alt="产品" class="w-12 h-12 rounded-lg object-cover">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">C20250727001</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            Coupang
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">WH-001-BLU</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">2</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">¥150</td>
+                                    <td class="px-4 py-3">
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 rounded proxy-switch" data-row="1">
+                                            <span class="ml-2 text-sm text-gray-700">开启</span>
+                                        </label>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="link-cell hidden">
+                                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">淘宝链接</a>
+                                        </span>
+                                        <span class="no-link-cell text-gray-400 text-sm">-</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">¥50</td>
+                                    <td class="px-4 py-3 text-sm profit-positive font-medium">¥50</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900 fee-cell">¥0</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">自购</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=60&h=60&fit=crop" alt="产品" class="w-12 h-12 rounded-lg object-cover">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">O20250727002</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            Ozon
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">HE-002-RED</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">1</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">¥90</td>
+                                    <td class="px-4 py-3">
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 rounded proxy-switch" data-row="2" checked>
+                                            <span class="ml-2 text-sm text-gray-700">开启</span>
+                                        </label>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="link-cell">
+                                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">1688链接</a>
+                                        </span>
+                                        <span class="no-link-cell hidden text-gray-400 text-sm">-</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">¥30</td>
+                                    <td class="px-4 py-3 text-sm profit-positive font-medium">¥58.5</td>
+                                    <td class="px-4 py-3 text-sm text-orange-600 font-medium fee-cell">¥1.5</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-orange-600 hover:text-orange-800 text-sm font-medium">代采</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=60&h=60&fit=crop" alt="产品" class="w-12 h-12 rounded-lg object-cover">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">C20250727003</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            Coupang
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">SH-003-WHT</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">3</td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">¥280</td>
+                                    <td class="px-4 py-3">
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600 rounded proxy-switch" data-row="3">
+                                            <span class="ml-2 text-sm text-gray-700">开启</span>
+                                        </label>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <span class="link-cell hidden">
+                                            <a href="#" class="text-blue-600 hover:text-blue-800 text-sm">拼多多链接</a>
+                                        </span>
+                                        <span class="no-link-cell text-gray-400 text-sm">-</span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">¥75</td>
+                                    <td class="px-4 py-3 text-sm profit-positive font-medium">¥130</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900 fee-cell">¥0</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">自购</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 云仓管理页面 -->
+            <div id="warehouse-page" class="page-content hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">云仓管理</h2>
+                    <p class="text-gray-600">库存管理和出入库操作</p>
+                </div>
+
+                <!-- 库存概览 -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">可用库存</p>
+                                <p class="text-2xl font-bold text-green-600">743</p>
+                            </div>
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">待质检</p>
+                                <p class="text-2xl font-bold text-orange-600">89</p>
+                            </div>
+                            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">异常库存</p>
+                                <p class="text-2xl font-bold text-red-600">12</p>
+                            </div>
+                            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">预占库存</p>
+                                <p class="text-2xl font-bold text-blue-600">48</p>
+                            </div>
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="bg-white rounded-xl shadow-sm p-4 mb-6">
+                    <div class="flex items-center space-x-4">
+                        <button class="gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90">
+                            商品入库
+                        </button>
+                        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50">
+                            批量出库
+                        </button>
+                        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50">
+                            库存调整
+                        </button>
+                        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50">
+                            库存盘点
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 库存列表 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">产品图片</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">SKU</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">产品名称</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">可用库存</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">预占数量</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">入库时间</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">状态</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=60&h=60&fit=crop" alt="产品" class="w-12 h-12 rounded-lg object-cover">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">WH-001-BLU</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">蓝牙无线耳机</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">45</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">3</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">2024-07-25</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                            正常
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium mr-2">调整</button>
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">出库</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=60&h=60&fit=crop" alt="产品" class="w-12 h-12 rounded-lg object-cover">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">HE-002-RED</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">运动头戴耳机</td>
+                                    <td class="px-4 py-3 text-sm text-red-600 font-medium">3</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">1</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">2024-07-24</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            低库存
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-orange-600 hover:text-orange-800 text-sm font-medium mr-2">补货</button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">调整</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3">
+                                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=60&h=60&fit=crop" alt="产品" class="w-12 h-12 rounded-lg object-cover">
+                                    </td>
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">SH-003-WHT</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">运动鞋</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">28</td>
+                                    <td class="px-4 py-3 text-sm text-gray-900">5</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">2024-07-26</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                            待质检
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-green-600 hover:text-green-800 text-sm font-medium mr-2">质检</button>
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">详情</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 物流追踪页面 -->
+            <div id="logistics-page" class="page-content hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">物流追踪</h2>
+                    <p class="text-gray-600">跨境物流状态监控</p>
+                </div>
+
+                <!-- 物流概览 -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">运输中</p>
+                                <p class="text-2xl font-bold text-blue-600">67</p>
+                            </div>
+                            <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/>
+                                    <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-.293-.707L15 4.586A1 1 0 0014.414 4H14v3z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">清关中</p>
+                                <p class="text-2xl font-bold text-orange-600">23</p>
+                            </div>
+                            <div class="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">异常件</p>
+                                <p class="text-2xl font-bold text-red-600">5</p>
+                            </div>
+                            <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-sm p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">已签收</p>
+                                <p class="text-2xl font-bold text-green-600">234</p>
+                            </div>
+                            <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 物流追踪列表 -->
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">订单号</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">目的国</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">运单号</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">发货时间</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">当前状态</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">预计到达</th>
+                                    <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">C20250727001</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-sm text-gray-900">🇰🇷 韩国</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-mono">SF202507270001</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">2024-07-25 14:30</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                                            运输中
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">2024-07-29</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看轨迹</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">O20250727002</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-sm text-gray-900">🇷🇺 俄罗斯</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-mono">EMS202507270002</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">2024-07-24 09:15</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                            清关中
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">2024-07-30</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-blue-600 hover:text-blue-800 text-sm font-medium">查看轨迹</button>
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-gray-50">
+                                    <td class="px-4 py-3 text-sm font-medium text-gray-900">C20250727003</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-sm text-gray-900">🇰🇷 韩国</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-blue-600 font-mono">SF202507270003</td>
+                                    <td class="px-4 py-3 text-sm text-gray-500">2024-07-23 16:45</td>
+                                    <td class="px-4 py-3">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                            地址错误
+                                        </span>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-red-500">处理中</td>
+                                    <td class="px-4 py-3">
+                                        <button class="text-red-600 hover:text-red-800 text-sm font-medium">处理异常</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 系统设置页面 -->
+            <div id="settings-page" class="page-content hidden">
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-800">系统设置</h2>
+                    <p class="text-gray-600">API配置和系统参数设置</p>
+                </div>
+
+                <!-- 设置标签页 -->
+                <div class="bg-white rounded-xl shadow-sm">
+                    <div class="border-b border-gray-200">
+                        <nav class="flex space-x-8 px-6">
+                            <button class="setting-tab py-4 text-sm font-medium border-b-2 border-blue-500 text-blue-600" data-tab="platform">
+                                平台API配置
+                            </button>
+                            <button class="setting-tab py-4 text-sm font-medium text-gray-500 hover:text-gray-700" data-tab="supplier">
+                                货源平台配置
+                            </button>
+                            <button class="setting-tab py-4 text-sm font-medium text-gray-500 hover:text-gray-700" data-tab="warehouse">
+                                云仓设置
+                            </button>
+                            <button class="setting-tab py-4 text-sm font-medium text-gray-500 hover:text-gray-700" data-tab="billing">
+                                费用设置
+                            </button>
+                        </nav>
+                    </div>
+
+                    <!-- 平台API配置 -->
+                    <div id="platform-tab" class="setting-content p-6">
+                        <div class="space-y-8">
+                            <!-- Coupang配置 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">Coupang API配置</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        已连接
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">API Key</label>
+                                        <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="cp_api_key_xxxxx" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Secret Key</label>
+                                        <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="cp_secret_xxxxx" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">同步频率</label>
+                                        <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                                            <option>每小时</option>
+                                            <option selected>每2小时</option>
+                                            <option>每天</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex space-x-3">
+                                        <button class="gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90">
+                                            测试连接
+                                        </button>
+                                        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50">
+                                            重新配置
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Ozon配置 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">Ozon API配置</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        已连接
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Client ID</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="ozon_client_xxxxx" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Client Secret</label>
+                                        <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="ozon_secret_xxxxx" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">同步频率</label>
+                                        <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                                            <option>每小时</option>
+                                            <option selected>每2小时</option>
+                                            <option>每天</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex space-x-3">
+                                        <button class="gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90">
+                                            测试连接
+                                        </button>
+                                        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50">
+                                            重新配置
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 货源平台配置 -->
+                    <div id="supplier-tab" class="setting-content p-6 hidden">
+                        <div class="space-y-8">
+                            <!-- 淘宝配置 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">淘宝API配置</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                        待配置
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">App Key</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="请输入淘宝App Key">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">App Secret</label>
+                                        <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2" placeholder="请输入App Secret">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">价格同步频率</label>
+                                        <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                                            <option>每小时</option>
+                                            <option selected>每天</option>
+                                            <option>手动同步</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex space-x-3">
+                                        <button class="gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90">
+                                            保存配置
+                                        </button>
+                                        <button class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50">
+                                            测试连接
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 1688配置 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">1688 API配置</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        已连接
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">App Key</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="1688_app_key_xxxxx" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">App Secret</label>
+                                        <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="1688_secret_xxxxx" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="flex items-center space-x-2">
+                                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600" checked>
+                                            <span class="text-sm text-gray-700">自动匹配SKU</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 拼多多配置 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h3 class="text-lg font-semibold text-gray-800">拼多多API配置</h3>
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                        已连接
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Client ID</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="pdd_client_xxxxx" readonly>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">Client Secret</label>
+                                        <input type="password" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="pdd_secret_xxxxx" readonly>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">货源链接批量导入</label>
+                                        <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 h-24" placeholder="每行一个链接，支持批量导入货源链接"></textarea>
+                                    </div>
+                                    <div class="col-span-2">
+                                        <button class="gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90">
+                                            批量导入链接
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 云仓设置 -->
+                    <div id="warehouse-tab" class="setting-content p-6 hidden">
+                        <div class="space-y-8">
+                            <!-- 基础设置 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">云仓基础信息</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">云仓名称</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="深圳前海云仓">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">联系电话</label>
+                                        <input type="text" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="0755-88888888">
+                                    </div>
+                                    <div class="col-span-2">
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">云仓地址</label>
+                                        <textarea class="w-full border border-gray-300 rounded-lg px-3 py-2 h-16">深圳市前海深港合作区前海路1号A栋</textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 代采购服务设置 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">代采购服务配置</h3>
+                                <div class="space-y-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-700">代采购服务</p>
+                                            <p class="text-xs text-gray-500">为海外卖家提供代采购服务</p>
+                                        </div>
+                                        <label class="inline-flex items-center">
+                                            <input type="checkbox" class="form-checkbox h-4 w-4 text-blue-600" checked>
+                                            <span class="ml-2 text-sm text-gray-700">启用</span>
+                                        </label>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">手续费比例 (%)</label>
+                                            <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="5" min="0" max="20" step="0.1">
+                                        </div>
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">结算周期</label>
+                                            <select class="w-full border border-gray-300 rounded-lg px-3 py-2">
+                                                <option>每周结算</option>
+                                                <option selected>每月结算</option>
+                                                <option>实时结算</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 费用设置 -->
+                    <div id="billing-tab" class="setting-content p-6 hidden">
+                        <div class="space-y-8">
+                            <!-- 存储费用 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">存储费用标准</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">标准存储 (元/件/月)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="2.5" step="0.1">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">大件存储 (元/件/月)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="5.0" step="0.1">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">易碎品存储 (元/件/月)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="3.5" step="0.1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 包装费用 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">包装费用标准</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">标准包装 (元/件)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="1.5" step="0.1">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">防震包装 (元/件)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="3.0" step="0.1">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">礼品包装 (元/件)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="8.0" step="0.1">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 物流费用 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">跨境物流费用</h3>
+                                <div class="space-y-4">
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                        <div class="font-medium text-gray-700">目的国</div>
+                                        <div class="font-medium text-gray-700">首重 (元/100g)</div>
+                                        <div class="font-medium text-gray-700">续重 (元/100g)</div>
+                                        <div class="font-medium text-gray-700">时效 (天)</div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 border-t">
+                                        <div>🇰🇷 韩国 (Coupang)</div>
+                                        <input type="number" class="border border-gray-300 rounded px-2 py-1" value="15" step="0.5">
+                                        <input type="number" class="border border-gray-300 rounded px-2 py-1" value="8" step="0.5">
+                                        <div class="text-gray-600">3-5</div>
+                                    </div>
+                                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 py-2 border-t">
+                                        <div>🇷🇺 俄罗斯 (Ozon)</div>
+                                        <input type="number" class="border border-gray-300 rounded px-2 py-1" value="18" step="0.5">
+                                        <input type="number" class="border border-gray-300 rounded px-2 py-1" value="12" step="0.5">
+                                        <div class="text-gray-600">7-12</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 汇率设置 -->
+                            <div class="border border-gray-200 rounded-lg p-6">
+                                <h3 class="text-lg font-semibold text-gray-800 mb-4">汇率设置</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">美元汇率 (USD/CNY)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="7.25" step="0.01">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">韩元汇率 (KRW/CNY)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="0.0055" step="0.0001">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-2">卢布汇率 (RUB/CNY)</label>
+                                        <input type="number" class="w-full border border-gray-300 rounded-lg px-3 py-2" value="0.075" step="0.001">
+                                    </div>
+                                </div>
+                                <div class="mt-4">
+                                    <button class="gradient-bg text-white px-4 py-2 rounded-lg hover:opacity-90">
+                                        更新汇率
+                                    </button>
+                                    <span class="ml-4 text-sm text-gray-500">最后更新：2024-07-27 10:30</span>
+                                </div>
+                            </div>
+
+                            <!-- 保存按钮 -->
+                            <div class="flex justify-end space-x-4">
+                                <button class="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-50">
+                                    重置
+                                </button>
+                                <button class="gradient-bg text-white px-6 py-2 rounded-lg hover:opacity-90">
+                                    保存所有设置
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // 页面切换功能
+        function showPage(pageId) {
+            // 隐藏所有页面
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // 显示目标页面
+            document.getElementById(pageId + '-page').classList.remove('hidden');
+            
+            // 更新侧边栏激活状态
+            document.querySelectorAll('.sidebar-item').forEach(item => {
+                item.classList.remove('sidebar-active');
+                if (item.dataset.page === pageId) {
+                    item.classList.add('sidebar-active');
+                }
+            });
+        }
+
+        // 代采购开关功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const proxySwitches = document.querySelectorAll('.proxy-switch');
+            
+            proxySwitches.forEach(switchEl => {
+                switchEl.addEventListener('change', function() {
+                    const row = this.closest('tr');
+                    const linkCell = row.querySelector('.link-cell');
+                    const noLinkCell = row.querySelector('.no-link-cell');
+                    const feeCell = row.querySelector('.fee-cell');
+                    const actionBtn = row.querySelector('td:last-child button');
+                    
+                    if (this.checked) {
+                        // 开启代采购
+                        linkCell.classList.remove('hidden');
+                        noLinkCell.classList.add('hidden');
+                        feeCell.textContent = '¥' + (parseFloat(row.cells[8].textContent.replace('¥', '')) * 0.05).toFixed(1);
+                        feeCell.classList.add('text-orange-600', 'font-medium');
+                        actionBtn.textContent = '代采';
+                        actionBtn.className = 'text-orange-600 hover:text-orange-800 text-sm font-medium';
+                        
+                        // 重新计算利润
+                        const salePrice = parseFloat(row.cells[5].textContent.replace('¥', ''));
+                        const purchasePrice = parseFloat(row.cells[8].textContent.replace('¥', ''));
+                        const fee = parseFloat(feeCell.textContent.replace('¥', ''));
+                        const profit = salePrice - purchasePrice - fee;
+                        row.cells[9].textContent = '¥' + profit.toFixed(1);
+                    } else {
+                        // 关闭代采购
+                        linkCell.classList.add('hidden');
+                        noLinkCell.classList.remove('hidden');
+                        feeCell.textContent = '¥0';
+                        feeCell.classList.remove('text-orange-600', 'font-medium');
+                        actionBtn.textContent = '自购';
+                        actionBtn.className = 'text-blue-600 hover:text-blue-800 text-sm font-medium';
+                        
+                        // 重新计算利润
+                        const salePrice = parseFloat(row.cells[5].textContent.replace('¥', ''));
+                        const purchasePrice = parseFloat(row.cells[8].textContent.replace('¥', ''));
+                        const profit = salePrice - purchasePrice;
+                        row.cells[9].textContent = '¥' + profit.toFixed(0);
+                    }
+                });
+            });
+
+            // 设置页面标签切换
+            const settingTabs = document.querySelectorAll('.setting-tab');
+            const settingContents = document.querySelectorAll('.setting-content');
+
+            settingTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.dataset.tab;
+                    
+                    // 更新标签样式
+                    settingTabs.forEach(t => {
+                        t.classList.remove('border-blue-500', 'text-blue-600');
+                        t.classList.add('text-gray-500');
+                    });
+                    this.classList.add('border-blue-500', 'text-blue-600');
+                    this.classList.remove('text-gray-500');
+                    
+                    // 切换内容
+                    settingContents.forEach(content => {
+                        content.classList.add('hidden');
+                    });
+                    document.getElementById(targetTab + '-tab').classList.remove('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
